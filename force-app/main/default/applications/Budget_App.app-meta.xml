@@ -14,5 +14,4 @@
     <navType>Standard</navType>
     <tabs>Budget_App</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Budget_App_UtilityBar</utilityBar>
 </CustomApplication>
