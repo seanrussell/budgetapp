@@ -3,6 +3,6 @@
     <description>Created by Lightning App Builder</description>
     <flexiPage>Budget_App</flexiPage>
     <label>Budget App</label>
-    <mobileReady>true</mobileReady>
-    <motif>Custom1: Heart</motif>
+    <mobileReady>false</mobileReady>
+    <motif>Custom79: Measuring Tape</motif>
 </CustomTab>
