@@ -12,7 +12,7 @@ public with sharing class BudgetPeriodController {
         result.pageSize = pageSize;
         result.pageNumber = pageNumber;
         result.totalItemCount = Database.countQuery('SELECT count() FROM Budget_Period__c');
-        result.records = Database.query('SELECT Id, Name, Description__c, Start_Date__c, End_Date__c, Total_Income__c, Total_Expense__c, Total_Saving__c FROM Budget_Period__c  ORDER BY Name LIMIT :pageSize OFFSET :offset');
+        result.records = Database.query('SELECT Id, Name, Description__c, Start_Date__c, End_Date__c, Total_Income__c, Total_Expense__c, Total_Savings__c FROM Budget_Period__c  ORDER BY Name LIMIT :pageSize OFFSET :offset');
         
         return result;
     }
