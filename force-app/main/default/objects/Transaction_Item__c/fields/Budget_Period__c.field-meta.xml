@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget_Period__c</fullName>
+    <description>The budget period this transaction belongs to</description>
+    <externalId>false</externalId>
+    <label>Budget Period</label>
+    <referenceTo>Budget_Period__c</referenceTo>
+    <relationshipLabel>Transaction Items</relationshipLabel>
+    <relationshipName>Transaction_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
