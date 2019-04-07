@@ -1,3 +1,32 @@
 <template>
-    
+    <div class="slds-card slds-p-around_x-small">
+        <template if:true={utilityBarIsVisible}>
+            
+        </template>
+        <template if:true={periods.data}>
+            <template if:true={periods.data.records.length}>
+                <div class="content">
+                    <template
+                        for:each={periods.data.records}
+                        for:item="period"
+                    >
+                        
+                    </template>
+                </div>
+                <c-budget-period-list-pagination
+                    page-number={pageNumber}
+                    page-size={periods.data.pageSize}
+                    total-item-count={periods.data.totalItemCount}
+                    onprevious={handlePreviousPage}
+                    onnext={handleNextPage}
+                ></c-budget-period-list-pagination>
+            </template>
+            <template if:false={periods.data.records.length}>
+                
+            </template>
+        </template>
+        <template if:true={periods.error}>
+            
+        </template>
+    </div>
 </template>
