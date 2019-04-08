@@ -1,0 +1,12 @@
+[
+    {
+        "sobject": "Budget_Period__c",
+        "saveRefs": true,
+        "files": ["Budget_Period__cs.json"]
+    },
+    {
+        "sobject": "Transaction_Item__c",
+        "resolveRefs": true,
+        "files": ["Transaction_Item__cs.json"]
+    }
+]
