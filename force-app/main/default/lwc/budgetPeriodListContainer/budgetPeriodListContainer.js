@@ -1,18 +1,13 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 
-import getBudgetPeriods from '@salesforce/apex/BudgetPeriodController.getBudgetPeriods';
-
 import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 
-/**
- * Container component that loads and displays a list of Product__c records.
- */
 export default class BudgetPeriodListContainer extends LightningElement {
     
     @api utilityBarIsVisible = false;
 
-    @track periods = [];
+    @track isNew = false;
 
     @track pageNumber = 1;
 
@@ -21,13 +16,6 @@ export default class BudgetPeriodListContainer extends LightningElement {
     @track totalItemCount = 0;
 
     @wire(CurrentPageReference) pageRef;
-
-    @wire(getBudgetPeriods, { pageNumber: '$pageNumber' })
-    periods;
-
-    handlePeriodSelected(event) {
-        fireEvent(this.pageRef, 'periodSelected', event.detail);
-    }
 
     disconnectedCallback() {
         unregisterAllListeners(this);
@@ -39,5 +27,13 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     handleNextPage() {
         this.pageNumber = this.pageNumber + 1;
+    }
+
+    handleNew() {
+        this.isNew = true;
+    }
+
+    handlePeriodSelect(event) {
+
     }
 }
