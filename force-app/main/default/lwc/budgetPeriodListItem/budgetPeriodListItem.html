@@ -1,3 +1,38 @@
 <template>
-    
+    <template if:true={period}>
+        <lightning-layout vertical-align="center">
+            <lightning-layout-item size="12" padding="around-small">
+                <a href="#" onclick={handleClick}>
+                    <p>{period.Name}</p>
+                </a>
+                <lightning-layout vertical-align="top" class="date-block">
+                    <lightning-layout-item size="5">
+                        <span class="date-label">Start Date</span>
+                        <lightning-formatted-date-time
+                            value={period.Start_Date__c} 
+                            year="numeric"
+                            day="2-digit"
+                            month="long"
+                            time-zone="UTC"
+                            class="date-value">
+                        </lightning-formatted-date-time>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="7">
+                        <span class="date-label">End Date</span>
+                        <lightning-formatted-date-time
+                            value={period.End_Date__c}
+                            year="numeric"
+                            day="2-digit"
+                            month="long"
+                            time-zone="UTC"
+                            class="date-value">
+                        </lightning-formatted-date-time>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+    <template if:false={period}>
+        <p>No budget period data available.</p>
+    </template>
 </template>

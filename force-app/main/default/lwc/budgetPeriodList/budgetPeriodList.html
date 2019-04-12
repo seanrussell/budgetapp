@@ -3,7 +3,11 @@
         <template if:true={periods.data.records.length}>
             <div class="content">
                 <template for:each={periods.data.records} for:item="period">
-                    <c-budget-period-list-item key={period.Id} period={period}></c-budget-period-list-item>
+                    <c-budget-period-list-item 
+                        key={period.Id} 
+                        period={period}
+                        onselected={handlePeriodSelected}>
+                    </c-budget-period-list-item>
                 </template>
             </div>
         </template>

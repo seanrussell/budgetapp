@@ -1,3 +1,8 @@
 import { LightningElement } from 'lwc';
 
-export default class BudgetPeriodListAction extends LightningElement {}
+export default class BudgetPeriodListAction extends LightningElement {
+
+    handleNew() {
+        
+    }    
+}

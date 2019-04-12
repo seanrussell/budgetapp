@@ -3,12 +3,12 @@ import { LightningElement, api } from 'lwc';
 export default class ContactListItemBubbling extends LightningElement {
     @api period;
 
-    handleSelect(event) {
+    handleClick(event) {
         event.preventDefault();
-        const selectEvent = new CustomEvent('periodselect', {
-            bubbles: true
+        const selectedEvent = new CustomEvent('selected', {
+            detail: this.period.Id
         });
-        
-        this.dispatchEvent(selectEvent);
+        this.dispatchEvent(selectedEvent);
+        console.log('DISPATCHED EVENT');
     }
 }

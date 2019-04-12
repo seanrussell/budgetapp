@@ -9,10 +9,10 @@
 
     <div aura:id="container">
         <lightning:layout>
-            <lightning:layoutItem aura:id="leftColumn" size="3">
+            <lightning:layoutItem aura:id="leftColumn" size="4">
                 {!v.left}
             </lightning:layoutItem>
-            <lightning:layoutItem aura:id="centerColumn" size="3" class="center">
+            <lightning:layoutItem aura:id="centerColumn" size="2" class="center">
                 {!v.center}
             </lightning:layoutItem>
             <lightning:layoutItem aura:id="rightColumn" size="4">

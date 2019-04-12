@@ -1,0 +1,12 @@
+<template>
+    <template if:true={summary}>
+        <lightning-card title="Overall Income &amp; Expense Summary" icon-name="custom:custom102">
+            <div class="slds-m-around_medium">
+                <canvas class="pie" lwc:dom="manual"></canvas>
+            </div>
+            <template if:true={error}>
+                
+            </template>
+        </lightning-card>
+    </template>
+</template>

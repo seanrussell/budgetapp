@@ -1,0 +1,16 @@
+.date-block {
+    border-bottom: 1px solid #c3c3c3;
+    padding-bottom: 10px;
+}
+
+.date-label {
+    font-size: 10px;
+    color: #d3d3d3;
+    font-style: italic;
+    padding-right: 3px;
+}
+
+.date-value {
+    font-size: 11px;
+    color: #696969;
+}

@@ -1,3 +1,5 @@
-.THIS .center {
+.THIS .left,
+.THIS .center,
+.THIS .right {
     padding: 0 12px;
 }

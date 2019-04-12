@@ -34,6 +34,6 @@ export default class BudgetPeriodListContainer extends LightningElement {
     }
 
     handlePeriodSelect(event) {
-
+        fireEvent(this.pageRef, 'productSelected', event.detail);
     }
 }

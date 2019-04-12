@@ -1,0 +1,12 @@
+<template>
+    <template if:true={history}>
+        <lightning-card title="Income &amp; Expenses in last 6 months" icon-name="custom:custom102">
+            <div class="slds-m-around_medium">
+                <canvas class="bar" lwc:dom="manual"></canvas>
+            </div>
+            <template if:true={error}>
+                
+            </template>
+        </lightning-card>
+    </template>
+</template>

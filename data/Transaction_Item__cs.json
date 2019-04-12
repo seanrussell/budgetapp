@@ -330,7 +330,6 @@
             "Amount__c": 1000.0,
             "Type__c": "Debit"
         },
-        ,
         {
             "attributes": {
                 "type": "Transaction_Item__c",
@@ -341,7 +340,7 @@
             "Date__c": "2018-05-27",
             "Amount__c": 100.0,
             "Type__c": "Debit"
-        }
+        },
         {
             "attributes": {
                 "type": "Transaction_Item__c",

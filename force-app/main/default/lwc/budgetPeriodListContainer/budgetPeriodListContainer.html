@@ -1,15 +1,31 @@
 <template>
-    <div class="slds-card slds-p-around_x-small" onperiodselect={handlePeriodSelect}>
+    
         <template if:false={isNew}>
-            <c-budget-period-list-action></c-budget-period-list-action>
-            <c-budget-period-list></c-budget-period-list>
-            <c-budget-period-list-pagination
-                page-number={pageNumber}
-                page-size={periods.data.pageSize}
-                total-item-count={periods.data.totalItemCount}
-                onprevious={handlePreviousPage}
-                onnext={handleNextPage}
-            ></c-budget-period-list-pagination>
+            <lightning-card title="Budget Periods" icon-name="standard:calibration">
+                <lightning-button
+                    slot="actions"
+                    label="New"
+                    onclick={handleNew}>
+                </lightning-button>
+
+                <div class="slds-m-around_medium">
+                    <c-budget-period-list
+                        page-number={pageNumber}
+                        onperiodselect={handlePeriodSelect}>
+                    </c-budget-period-list>      
+                </div>
+
+                <c-budget-period-list-pagination
+                        page-number={pageNumber}
+                        page-size=10
+                        total-item-count=12
+                        onprevious={handlePreviousPage}
+                        onnext={handleNextPage}>
+                </c-budget-period-list-pagination>
+            </lightning-card>
         </template>
-    </div>
+        <template if:true={isNew}>
+
+
+        </template>
 </template>
