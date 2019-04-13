@@ -1,31 +1,50 @@
 <template>
-    
-        <template if:false={isNew}>
-            <lightning-card title="Budget Periods" icon-name="standard:calibration">
-                <lightning-button
-                    slot="actions"
-                    label="New"
-                    onclick={handleNew}>
-                </lightning-button>
+    <template if:false={isNew}>
+        <lightning-card title="Budget Periods" icon-name="standard:contact_list">
+            <lightning-button
+                slot="actions"
+                label="New"
+                onclick={handleNew}>
+            </lightning-button>
 
+            <template if:true={periods.data}>
                 <div class="slds-m-around_medium">
-                    <c-budget-period-list
-                        page-number={pageNumber}
-                        onperiodselect={handlePeriodSelect}>
-                    </c-budget-period-list>      
+                    <template if:true={periods.data.records.length}>
+                        <div class="content">
+                            <template for:each={periods.data.records} for:item="period">
+                                <c-budget-period-list-item 
+                                    key={period.Id} 
+                                    period={period}
+                                    onselected={handlePeriodSelected}>
+                                </c-budget-period-list-item>
+                            </template>
+                        </div>
+                    </template>
+                    <template if:false={periods.data.records.length}>
+                        There are no budget period records to list
+                    </template>    
                 </div>
 
                 <c-budget-period-list-pagination
-                        page-number={pageNumber}
-                        page-size=10
-                        total-item-count=12
-                        onprevious={handlePreviousPage}
-                        onnext={handleNextPage}>
+                    page-number={pageNumber}
+                    page-size={periods.data.pageSize}
+                    total-item-count={periods.data.totalItemCount}
+                    onprevious={handlePreviousPage}
+                    onnext={handleNextPage}>
                 </c-budget-period-list-pagination>
-            </lightning-card>
-        </template>
-        <template if:true={isNew}>
-
-
-        </template>
+            </template>
+        </lightning-card>
+    </template>
+    <template if:true={isNew}>
+        <lightning-card title="New Budget Period" icon-name="standard:contact_list">
+            <div class="slds-m-around_medium">
+                <lightning-record-form
+                    object-api-name={budgetPeriodObject}
+                    fields={budgetPeriodFields}
+                    onsuccess={handleBudgetPeriodCreated}
+                    oncancel={handleBudgetPeriodCancel}>
+                </lightning-record-form>      
+            </div>
+        </lightning-card>
+    </template>
 </template>

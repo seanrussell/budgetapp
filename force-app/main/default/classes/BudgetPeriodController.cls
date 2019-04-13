@@ -17,7 +17,7 @@ public with sharing class BudgetPeriodController {
         12 => 'December'
     };
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(cacheable=true)
     public static PagedResult getBudgetPeriods(Integer pageNumber) {
         Integer pageSize = BudgetPeriodController.PAGE_SIZE;
         Integer offset = (pageNumber - 1) * pageSize;
@@ -32,7 +32,7 @@ public with sharing class BudgetPeriodController {
         return result;
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(cacheable=true)
     public static BudgetPeriodSummary getBudgetPeriodSummary() {
         AggregateResult[] results = [
             SELECT 
@@ -53,7 +53,7 @@ public with sharing class BudgetPeriodController {
         return summary;
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(cacheable=true)
     public static List<BudgetPeriod> getBudgetPeriodRecentHistory() {
         List<Budget_Period__c> budgetPeriods = [
             SELECT 
@@ -65,7 +65,7 @@ public with sharing class BudgetPeriodController {
                 Budget_Period__c
             ORDER BY 
                 Start_Date__c DESC
-            LIMIT 6
+            LIMIT 3
         ];
 
         List<BudgetPeriod> bps = new List<BudgetPeriod>();

@@ -22,6 +22,25 @@ private class BudgetPeriodControllerTest {
         };
 
         insert budgetPeriods;
+
+        List<Transaction_Item__c> transactionItems = new List<Transaction_Item__c>{
+            new Transaction_Item__c(
+                Budget_Period__c = budgetPeriods.get(0).Id,
+                Name = 'Job paycheck',
+                Amount__c = 1000.0,
+                Type__c = 'Credit',
+                Date__c = Date.newInstance(2019, 1, 15)
+            ),
+            new Transaction_Item__c(
+                Budget_Period__c = budgetPeriods.get(0).Id,
+                Name = 'Mortgage payment',
+                Amount__c = 900.0,
+                Type__c = 'Debit',
+                Date__c = Date.newInstance(2019, 1, 20)
+            )
+        };
+
+        insert transactionItems;
     }
 
     @isTest
@@ -33,5 +52,27 @@ private class BudgetPeriodControllerTest {
 
         System.assertEquals(3, result.totalItemCount);
         System.assertEquals(3, result.records.size());
+    }
+
+    @isTest 
+    static void testGetBudgetPeriodSummary() {
+
+        Test.startTest();
+        BudgetPeriodController.BudgetPeriodSummary summary = BudgetPeriodController.getBudgetPeriodSummary();
+        Test.stopTest();
+
+        System.assertEquals(1000, summary.totalIncome);
+        System.assertEquals(900, summary.totalExpense);
+        System.assertEquals(100, summary.totalSavings);
+    }
+
+    @isTest 
+    static void testGetBudgetPeriodRecentHistory() {
+
+        Test.startTest();
+        List<BudgetPeriodController.BudgetPeriod> recentHistory = BudgetPeriodController.getBudgetPeriodRecentHistory();
+        Test.stopTest();
+
+        System.assert(!recentHistory.isEmpty());
     }
 }

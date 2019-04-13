@@ -16,7 +16,7 @@ export default class BudgetPeriodSummaryChart extends LightningElement {
                 return;
             }
             this.chartjsInitialized = true;
-
+            
             const dataValues = [
                 this.summary.totalIncome,
                 this.summary.totalExpense,

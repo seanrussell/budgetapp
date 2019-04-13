@@ -1,3 +1,38 @@
 <template>
-    
+    <template if:true={period.data}>
+        <lightning-card title={period.data.fields.Name.value} icon-name="standard:contact_list">
+            <div class="slds-m-around_medium">
+                <lightning-tabset>
+                    <lightning-tab label="Details">
+                        <lightning-record-form
+                            record-id={recordId}
+                            object-api-name={budgetPeriodObject}
+                            fields={budgetPeriodFields}
+                            layout-type="Compact"
+                            mode="view">
+                        </lightning-record-form>
+                    </lightning-tab>
+                    <lightning-tab label="Transactions">   
+                        <template if:true={items}>
+                            <lightning-datatable
+                                key-field="Id"
+                                data={items}
+                                columns={columns}
+                                onsave={handleSave}
+                                draft-values={draftValues}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </template>
+                        <template if:true={transaction.error}>
+                            <!-- handle Apex error -->
+                        </template>      
+                    </lightning-tab>
+                </lightning-tabset>  
+            </div>      
+        </lightning-card>
+    </template>
+    <template if:false={period.data}>
+
+
+    </template>
 </template>
