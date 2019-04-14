@@ -1,6 +1,13 @@
 <template>
     <template if:true={period.data}>
-        <lightning-card title={period.data.fields.Name.value} icon-name="standard:contact_list">
+        <lightning-card title={period.data.fields.Name.value} icon-name="standard:display_text">
+            <lightning-button
+                slot="actions"
+                variant="destructive"
+                label="Delete"
+                onclick={handleDelete}>
+            </lightning-button>
+
             <div class="slds-m-around_medium">
                 <lightning-tabset>
                     <lightning-tab label="Details">
@@ -13,26 +20,19 @@
                         </lightning-record-form>
                     </lightning-tab>
                     <lightning-tab label="Transactions">   
-                        <template if:true={items}>
-                            <lightning-datatable
-                                key-field="Id"
-                                data={items}
-                                columns={columns}
-                                onsave={handleSave}
-                                draft-values={draftValues}
-                                hide-checkbox-column>
-                            </lightning-datatable>
-                        </template>
-                        <template if:true={transaction.error}>
-                            <!-- handle Apex error -->
-                        </template>      
+                        <c-budget-transaction-item 
+                            budget-period-id={recordId}>
+                        </c-budget-transaction-item>
                     </lightning-tab>
                 </lightning-tabset>  
             </div>      
         </lightning-card>
     </template>
     <template if:false={period.data}>
-
-
+        <lightning-card title="Budget Period Detail" icon-name="standard:display_text">
+            <div class="slds-m-around_medium">
+                Select a budget period in the list to the left to view its details.
+            </div>
+        </lightning-card>
     </template>
 </template>

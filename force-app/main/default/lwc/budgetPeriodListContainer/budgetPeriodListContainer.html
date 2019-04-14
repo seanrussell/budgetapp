@@ -1,30 +1,26 @@
 <template>
     <template if:false={isNew}>
-        <lightning-card title="Budget Periods" icon-name="standard:contact_list">
+        <lightning-card title="Budget Periods" icon-name="standard:drafts">
             <lightning-button
                 slot="actions"
                 label="New"
                 onclick={handleNew}>
             </lightning-button>
-
             <template if:true={periods.data}>
                 <div class="slds-m-around_medium">
-                    <template if:true={periods.data.records.length}>
-                        <div class="content">
-                            <template for:each={periods.data.records} for:item="period">
-                                <c-budget-period-list-item 
-                                    key={period.Id} 
-                                    period={period}
-                                    onselected={handlePeriodSelected}>
-                                </c-budget-period-list-item>
-                            </template>
-                        </div>
+                    <template if:true={periods.data.records.length}>      
+                        <template for:each={periods.data.records} for:item="period">
+                            <c-budget-period-list-item 
+                                key={period.Id} 
+                                period={period}
+                                onselected={handlePeriodSelected}>
+                            </c-budget-period-list-item>
+                        </template>
                     </template>
                     <template if:false={periods.data.records.length}>
                         There are no budget period records to list
                     </template>    
                 </div>
-
                 <c-budget-period-list-pagination
                     page-number={pageNumber}
                     page-size={periods.data.pageSize}

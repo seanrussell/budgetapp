@@ -1,0 +1,108 @@
+<template>
+    <template if:true={isEdit}>
+        <div class="slds-m-around_medium">
+            <template if:true={isNew}>
+                <lightning-record-form
+                    object-api-name={transactionItemObject}
+                    fields={transactionItemFields}
+                    onsuccess={handleTransactionItemCreated}
+                    oncancel={handleTransactionItemCancel}>
+                </lightning-record-form>  
+            </template>
+            <template if:false={isNew}>
+                <lightning-record-form
+                    record-id={selectedId}
+                    object-api-name={transactionItemObject}
+                    fields={transactionItemFields}
+                    onsuccess={handleTransactionItemCreated}
+                    oncancel={handleTransactionItemCancel}>
+                </lightning-record-form>
+            </template>     
+        </div>
+    </template>   
+    <template if:false={isEdit}>
+        <template if:true={items.length}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-bottom_medium">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Type">Type</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Amount">Amount</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Date">Date</div>
+                    </th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={items} for:item="transactionItem">   
+                        <tr class="slds-hint-parent" key={transactionItem.Id}>
+                            <td data-label="Name">
+                                <div class="slds-truncate">
+                                    {transactionItem.Name}
+                                </div>
+                            </td>
+                            <td data-label="Type">
+                                <div class="slds-truncate">
+                                    {transactionItem.Type__c}
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <div class="slds-truncate">
+                                    <lightning-formatted-number 
+                                        value={transactionItem.Amount__c}
+                                        format-style="currency" 
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </div>
+                            </td>
+                            <td data-label="Date">
+                                <div class="slds-truncate">
+                                    <lightning-formatted-date-time
+                                        value={transactionItem.Date__c} 
+                                        year="numeric"
+                                        day="2-digit"
+                                        month="short"
+                                        time-zone="UTC"
+                                        class="date-value">
+                                    </lightning-formatted-date-time>
+                                </div>
+                            </td>
+                            <td data-label="Actions">
+                                <div class="slds-truncate" title="Actions">
+                                    <c-budget-transaction-item-action
+                                        key={transactionItem.Id}
+                                        name="action:edit"
+                                        transaction-item={transactionItem}
+                                        label="Edit"
+                                        onedit={handleEditAction}>
+                                    </c-budget-transaction-item-action>
+                                    <c-budget-transaction-item-action
+                                        key={transactionItem.Id}
+                                        name="action:delete"
+                                        transaction-item={transactionItem}
+                                        label="Delete"
+                                        ondelete={handleDeleteAction}>
+                                    </c-budget-transaction-item-action>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>  
+                </tbody>
+            </table>
+
+            <lightning-button
+                slot="actions"
+                label="New"
+                onclick={handleNew}>
+            </lightning-button>
+
+        </template>
+    </template>  
+</template>

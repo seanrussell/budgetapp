@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 
-export default class ContactListItemBubbling extends LightningElement {
+export default class BudgetPeriodListItem extends LightningElement {
     @api period;
 
     handleClick(event) {
@@ -9,6 +9,5 @@ export default class ContactListItemBubbling extends LightningElement {
             detail: this.period.Id
         });
         this.dispatchEvent(selectedEvent);
-        console.log('DISPATCHED EVENT');
     }
 }

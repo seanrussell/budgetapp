@@ -33,7 +33,6 @@ export default class BudgetPeriodListContainer extends LightningElement {
     periods;
 
     handlePeriodSelected(event) {
-        console.log('HANDLE PERIOD SELECTED EVENT');
         fireEvent(this.pageRef, 'periodSelected', event.detail);
     }
 
@@ -60,9 +59,5 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     handleBudgetPeriodCancel() {
         this.isNew = false;
-    }
-
-    handlePeriodSelect(event) {
-        fireEvent(this.pageRef, 'productSelected', event.detail);
     }
 }

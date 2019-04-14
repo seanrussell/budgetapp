@@ -1,13 +1,13 @@
 <template>
     <template if:true={period}>
-        <lightning-layout vertical-align="center">
-            <lightning-layout-item size="12" padding="around-small">
-                <a href="#" onclick={handleClick}>
-                    <p>{period.Name}</p>
-                </a>
-                <lightning-layout vertical-align="top" class="date-block">
-                    <lightning-layout-item size="5">
-                        <span class="date-label">Start Date</span>
+        <lightning-tile label={period.Name} type="media" class="slds-tile_board slds-m-bottom_medium" onclick={handleClick}>
+            <lightning-icon slot="media" icon-name="standard:display_text" size="x-small"></lightning-icon>
+            <dl class="slds-dl_horizontal">
+                <dt class="slds-dl_horizontal__label">
+                    <p class="slds-truncate" title="Start Date">Start Date:</p>
+                </dt>
+                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                    <p class="slds-truncate" title="Start Date">
                         <lightning-formatted-date-time
                             value={period.Start_Date__c} 
                             year="numeric"
@@ -16,9 +16,13 @@
                             time-zone="UTC"
                             class="date-value">
                         </lightning-formatted-date-time>
-                    </lightning-layout-item>
-                    <lightning-layout-item size="7">
-                        <span class="date-label">End Date</span>
+                    </p>
+                </dd>
+                <dt class="slds-dl_horizontal__label">
+                    <p class="slds-truncate" title="End Date">End Date:</p>
+                </dt>
+                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                    <p class="slds-truncate" title="End Date">
                         <lightning-formatted-date-time
                             value={period.End_Date__c}
                             year="numeric"
@@ -27,10 +31,10 @@
                             time-zone="UTC"
                             class="date-value">
                         </lightning-formatted-date-time>
-                    </lightning-layout-item>
-                </lightning-layout>
-            </lightning-layout-item>
-        </lightning-layout>
+                    </p>
+                </dd>
+            </dl>
+        </lightning-tile>
     </template>
     <template if:false={period}>
         <p>No budget period data available.</p>
