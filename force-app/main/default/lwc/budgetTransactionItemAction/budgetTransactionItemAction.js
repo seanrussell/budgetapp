@@ -6,15 +6,12 @@ export default class BudgetTransactionItemAction extends LightningElement {
     @api transactionItem;
 
     handleClick(event) {
-        console.log('HANDLING CLICK EVENT');
-        if (this.name == 'action:edit') {
-            console.log('IS EDIT');
+        if (this.name === 'action:edit') {
             const editEvent = new CustomEvent('edit', {
                 detail: this.transactionItem.Id
             });
             this.dispatchEvent(editEvent);
         } else {
-            console.log('IS DELETE');
             const deleteEvent = new CustomEvent('delete', {
                 detail: this.transactionItem.Id
             });

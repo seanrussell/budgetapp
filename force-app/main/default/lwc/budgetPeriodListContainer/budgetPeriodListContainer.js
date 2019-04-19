@@ -60,10 +60,12 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     handlePreviousPage() {
         this.pageNumber = this.pageNumber - 1;
+        this.loadBudgetPeriods();
     }
 
     handleNextPage() {
         this.pageNumber = this.pageNumber + 1;
+        this.loadBudgetPeriods();
     }
 
     handleNew() {

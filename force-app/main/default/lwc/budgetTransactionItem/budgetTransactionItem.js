@@ -1,6 +1,8 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getTransactionItemList from '@salesforce/apex/TransactionItemController.getTransactionItems';
+import deleteTransactionItem from '@salesforce/apex/TransactionItemController.deleteTransactionItem';
 
 import TRANSACTION_ITEM_OBJECT from '@salesforce/schema/Transaction_Item__c';
 import BUDGET_PERIOD_ID_FIELD from '@salesforce/schema/Transaction_Item__c.Budget_Period__c';
@@ -24,14 +26,18 @@ export default class BudgetTransactionItemContainer extends LightningElement {
 
     renderedCallback() {
         if (this.budgetPeriodId) {
-            getTransactionItemList({budgetPeriodId: this.budgetPeriodId})
-                .then(result => {
-                    this.items = result;
-                })
-                .catch(error => {
-                    this.error = error;
-                });
+            this.loadTransactionItems();
         }
+    }
+
+    loadTransactionItems() {
+        getTransactionItemList({budgetPeriodId: this.budgetPeriodId})
+            .then(result => {
+                this.items = result;
+            })
+            .catch(error => {
+                this.error = error;
+            });
     }
 
     handleNew() {
@@ -45,18 +51,40 @@ export default class BudgetTransactionItemContainer extends LightningElement {
     }
 
     handleEditAction(event) {
-        console.log('EVT: ', event.detail);
         this.selectedId = event.detail;
         this.isEdit = true;
         this.isNew = false;
     }
 
     handleDeleteAction(event) {
-        console.log('EVT: ', event.detail);
+        if (event.detail) {
+            deleteTransactionItem({transactionItemId: event.detail})
+                .then(result => {
+                    const event = new ShowToastEvent({
+                        title: 'Delete',
+                        message: 'Transaction Item was deleted successfully',
+                        variant: 'success'
+                    });
+                    this.dispatchEvent(event);
+
+                    this.loadTransactionItems();
+                })
+                .catch(error => {
+                    const event = new ShowToastEvent({
+                        title: 'Delete',
+                        message: 'Transaction Item unable to be deleted',
+                        variant: 'error'
+                    });
+                    this.dispatchEvent(event);
+
+                    this.error = error;
+                });
+        }
     }
 
     handleTransactionItemCreated() {
         this.isEdit = false;
+        this.loadTransactionItems();
     }
 
     handleTransactionItemCancel() {
