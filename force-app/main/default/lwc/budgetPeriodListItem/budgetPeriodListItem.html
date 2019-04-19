@@ -1,6 +1,11 @@
 <template>
     <template if:true={period}>
-        <lightning-tile label={period.Name} type="media" class="slds-tile_board slds-m-bottom_medium" onclick={handleClick}>
+        <lightning-tile label={period.Name} 
+            type="media" 
+            class="slds-tile_board slds-m-bottom_medium" 
+            onclick={handleClick}
+            actions={actions}
+            onactiontriggered={handleAction}>
             <lightning-icon slot="media" icon-name="standard:display_text" size="x-small"></lightning-icon>
             <dl class="slds-dl_horizontal">
                 <dt class="slds-dl_horizontal__label">
