@@ -1,0 +1,60 @@
+.income-text {
+    font-size: 1.2em;
+    color: rgb(54, 162, 235);
+    padding: 5px;
+    border-bottom: 1px solid #efefef;
+}
+
+.income-bg {
+    font-size: 1.2em;
+    color: #fff;
+    background-color: rgb(54, 162, 235);
+    padding: 5px;
+}
+
+.expenses-text {
+    font-size: 1.2em;
+    color: rgb(255, 99, 132);
+    padding: 5px;
+    border-bottom: 1px solid #efefef;
+}
+
+.expenses-bg {
+    font-size: 1.2em;
+    color: #fff;
+    background-color: rgb(255, 99, 132);
+    padding: 5px;
+}
+
+.savings-text {
+    font-size: 1.2em;
+    font-size: 1.2em;
+    color: rgb(75, 192, 192);
+    padding: 5px;
+}
+
+.savings-bg {
+    color: #fff;
+    background-color: rgb(75, 192, 192);
+    padding: 5px;
+}
+
+
+dt {
+    float: left;
+    clear: left;
+    width: 100px;
+    text-align: right;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+  
+dt::after {
+    content: ":";
+}
+
+dd {
+    width: 150px;
+    margin: 0 0 1px 110px;
+    text-align: right;
+}

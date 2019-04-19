@@ -31,9 +31,28 @@ private class TransactionItemControllerTest {
         insert transactionItems;
     }
 
+    static List<Transaction_Item__c> getTransactionItems() {
+        return [
+            SELECT
+                Id 
+            FROM 
+                Transaction_Item__c
+        ];
+    }
+
+    static Transaction_Item__c getTransactionItem() {
+        return [
+            SELECT
+                Id 
+            FROM 
+                Transaction_Item__c
+            LIMIT 1
+        ];
+    }
+
     static Budget_Period__c getBudgetPeriod() {
         return [
-            SELECT 
+            SELECT
                 Id 
             FROM 
                 Budget_Period__c
@@ -50,5 +69,19 @@ private class TransactionItemControllerTest {
         Test.stopTest();
 
         System.assertEquals(2, transactionItems.size());
+    }
+
+    @isTest 
+    static void testDeleteTransactionItem() {
+        Transaction_Item__c transactionItem = getTransactionItem();
+        List<Transaction_Item__c> transactionItems = getTransactionItems();
+
+        Test.startTest();
+        TransactionItemController.deleteTransactionItem(transactionItem.Id);
+        Test.stopTest();
+
+         List<Transaction_Item__c> updatedTransactionItems = getTransactionItems();
+
+        System.assertEquals(transactionItems.size(), updatedTransactionItems.size() + 1);
     }
 }

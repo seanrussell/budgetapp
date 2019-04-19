@@ -17,7 +17,7 @@ public with sharing class BudgetPeriodController {
         12 => 'December'
     };
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static PagedResult getBudgetPeriods(Integer pageNumber) {
         Integer pageSize = BudgetPeriodController.PAGE_SIZE;
         Integer offset = (pageNumber - 1) * pageSize;
@@ -84,6 +84,17 @@ public with sharing class BudgetPeriodController {
         }      
       
         return bps;
+    }
+
+    @AuraEnabled
+    public static void deleteBudgetPeriod(String budgetPeriodId) {
+        if (String.isNotBlank(budgetPeriodId)) {
+            try {
+                delete [SELECT Id FROM Budget_Period__c WHERE Id = :budgetPeriodId];
+            } catch (Exception e) {
+                throw new AuraException(e.getMessage());
+            }
+        } 
     }
 
     private static String getLabel(Date theDate) {

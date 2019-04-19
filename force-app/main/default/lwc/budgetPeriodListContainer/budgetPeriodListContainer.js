@@ -15,29 +15,47 @@ export default class BudgetPeriodListContainer extends LightningElement {
     budgetPeriodObject = BUDGET_PERIOD_OBJECT;
     budgetPeriodFields = [NAME_FIELD, DESCRIPTION_FIELD, START_DATE_FIELD, END_DATE_FIELD];
     
-    @track periods = [];
-
+    @track periods = {};
     @track error = [];
-
     @track isNew = false;
-
     @track pageNumber = 1;
-
     @track pageSize;
-
     @track totalItemCount = 0;
+    @track loaded = false;
 
     @wire(CurrentPageReference) pageRef;
 
-    @wire(getBudgetPeriods, { pageNumber: '$pageNumber' })
-    periods;
-
-    handlePeriodSelected(event) {
-        fireEvent(this.pageRef, 'periodSelected', event.detail);
+    connectedCallback() {
+        registerListener('budgetPeriodDeleted', this.handleBudgetPeriodDeleted, this);
     }
 
     disconnectedCallback() {
         unregisterAllListeners(this);
+    }
+    
+    renderedCallback() {
+        if (this.pageNumber && !this.loaded) {
+            this.loaded = true;
+            this.loadBudgetPeriods();
+        }
+    }
+
+    loadBudgetPeriods() {
+        getBudgetPeriods({pageNumber: this.pageNumber})
+                .then(result => {
+                    this.periods.data = result;
+                })
+                .catch(error => {
+                    this.error = error;
+                });
+    }
+
+    handleBudgetPeriodDeleted() {
+        this.loadBudgetPeriods();
+    }
+
+    handlePeriodSelected(event) {
+        fireEvent(this.pageRef, 'periodSelected', event.detail);
     }
 
     handlePreviousPage() {
@@ -55,6 +73,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
     handleBudgetPeriodCreated() {
         this.isNew = false;
         this.pageNumber = 1;
+        this.loadBudgetPeriods();
     }
 
     handleBudgetPeriodCancel() {

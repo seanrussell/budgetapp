@@ -43,6 +43,25 @@ private class BudgetPeriodControllerTest {
         insert transactionItems;
     }
 
+    static List<Budget_Period__c> getBudgetPeriods() {
+        return [
+            SELECT
+                Id 
+            FROM 
+                Budget_Period__c
+        ];
+    }
+
+    static Budget_Period__c getBudgetPeriod() {
+        return [
+            SELECT
+                Id 
+            FROM 
+                Budget_Period__c
+            LIMIT 1
+        ];
+    }
+
     @isTest
     static void testGetBudgetPeriods() {
 
@@ -74,5 +93,19 @@ private class BudgetPeriodControllerTest {
         Test.stopTest();
 
         System.assert(!recentHistory.isEmpty());
+    }
+
+    @isTest 
+    static void testDeleteBudgetPeriod() {
+        Budget_Period__c budgetPeriod = getBudgetPeriod();
+        List<Budget_Period__c> budgetPeriods = getBudgetPeriods();
+
+        Test.startTest();
+        BudgetPeriodController.deleteBudgetPeriod(budgetPeriod.Id);
+        Test.stopTest();
+
+        List<Budget_Period__c> updatedBudgetPeriods = getBudgetPeriods();
+
+        System.assertEquals(budgetPeriods.size(), updatedBudgetPeriods.size() + 1);
     }
 }

@@ -17,6 +17,13 @@
                     onsuccess={handleTransactionItemCreated}
                     oncancel={handleTransactionItemCancel}>
                 </lightning-record-form>
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        slot="actions"
+                        label="Cancel"
+                        onclick={handleCancel}>
+                    </lightning-button>
+                </div>
             </template>     
         </div>
     </template>   
@@ -75,7 +82,7 @@
                                 </div>
                             </td>
                             <td data-label="Actions">
-                                <div class="slds-truncate" title="Actions">
+                                <div class="slds-truncate transaction-item-action" title="Actions">
                                     <c-budget-transaction-item-action
                                         key={transactionItem.Id}
                                         name="action:edit"
@@ -96,13 +103,12 @@
                     </template>  
                 </tbody>
             </table>
-
-            <lightning-button
-                slot="actions"
-                label="New"
-                onclick={handleNew}>
-            </lightning-button>
-
         </template>
+
+        <lightning-button
+            slot="actions"
+            label="New"
+            onclick={handleNew}>
+        </lightning-button>
     </template>  
 </template>

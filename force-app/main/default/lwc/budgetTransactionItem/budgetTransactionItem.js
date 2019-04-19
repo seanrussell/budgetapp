@@ -39,6 +39,11 @@ export default class BudgetTransactionItemContainer extends LightningElement {
         this.isNew = true;
     }
 
+    handleCancel() {
+        this.isEdit = false;
+        this.isNew = false;
+    }
+
     handleEditAction(event) {
         console.log('EVT: ', event.detail);
         this.selectedId = event.detail;

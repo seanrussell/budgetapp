@@ -2,7 +2,11 @@ import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import { getRecord } from 'lightning/uiRecordApi';
 
-import { registerListener, unregisterAllListeners } from 'c/pubsub';
+import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
+
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
+
 
 import BUDGET_PERIOD_OBJECT from '@salesforce/schema/Budget_Period__c';
 import NAME_FIELD from '@salesforce/schema/Budget_Period__c.Name';
@@ -25,6 +29,7 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
 
     @track period = {};
     @track error;
+    @track success = false;
 
     @wire(CurrentPageReference) pageRef;
 
@@ -35,11 +40,40 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
         registerListener('periodSelected', this.handlePeriodSelected, this);
     }
 
+    disconnectedCallback() {
+        unregisterAllListeners(this);
+    }
+
     handlePeriodSelected(periodId) {
+        this.period = {};
         this.recordId = periodId;
     }
 
     handleDelete() {
+        if (this.recordId) {
+            deleteBudgetPeriod({budgetPeriodId: this.recordId})
+                .then(result => {
+                    this.period = {};
+                    
+                    const event = new ShowToastEvent({
+                        title: 'Delete',
+                        message: 'Budget period was deleted successfully',
+                        variant: 'success'
+                    });
+                    this.dispatchEvent(event);
 
+                    fireEvent(this.pageRef, 'budgetPeriodDeleted', this.recordId);
+                })
+                .catch(error => {
+                    this.error = error;
+
+                    const event = new ShowToastEvent({
+                        title: 'Delete',
+                        message: 'Budget period unable to be deleted',
+                        variant: 'error'
+                    });
+                    this.dispatchEvent(event);
+                });
+        }
     }
 }

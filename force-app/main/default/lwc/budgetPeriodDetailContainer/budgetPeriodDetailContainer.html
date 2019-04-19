@@ -9,8 +9,8 @@
             </lightning-button>
 
             <div class="slds-m-around_medium">
-                <lightning-tabset>
-                    <lightning-tab label="Details">
+                <lightning-tabset active-tab-value="details">
+                    <lightning-tab label="Details" value="details">
                         <lightning-record-form
                             record-id={recordId}
                             object-api-name={budgetPeriodObject}
@@ -19,7 +19,7 @@
                             mode="view">
                         </lightning-record-form>
                     </lightning-tab>
-                    <lightning-tab label="Transactions">   
+                    <lightning-tab label="Transactions" value="transactions">   
                         <c-budget-transaction-item 
                             budget-period-id={recordId}>
                         </c-budget-transaction-item>

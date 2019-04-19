@@ -1,0 +1,37 @@
+<template>
+    <template if:true={summary}>
+        <lightning-card title="Income &amp; Expense Summary" icon-name="standard:metrics">
+            <div class="slds-m-around_medium slds-align_absolute-center">
+                <dl>
+                    <dt class="income-text">Income</dt>
+                    <dd class="income-bg">
+                        <lightning-formatted-number 
+                            value={totalIncome}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                    <dt class="expenses-text">Expenses</dt>
+                    <dd class="expenses-bg">
+                        <lightning-formatted-number 
+                            value={totalExpenses}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                    <dt class="savings-text">Savings</dt>
+                    <dd class="savings-bg">
+                        <lightning-formatted-number 
+                            value={totalSavings}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                </dl>
+            </div>
+            <template if:true={error}>
+                
+            </template>
+        </lightning-card>
+    </template>
+</template>
