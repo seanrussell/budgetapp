@@ -1,3 +1,10 @@
 .transaction-item-action {
     text-align: right;
 }
+
+.transaction-item-table th.amount,
+.transaction-item-table td.amount,
+.transaction-item-table th.date-time,
+.transaction-item-table td.date-time {
+    text-align: right;
+}

@@ -35,6 +35,7 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
 
     connectedCallback() {
         registerListener('periodSelected', this.handlePeriodSelected, this);
+        registerListener('budgetPeriodListDelete', this.handlePeriodListDelete, this);
     }
 
     disconnectedCallback() {
@@ -44,6 +45,10 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
     handlePeriodSelected(periodId) {
         this.period = {};
         this.recordId = periodId;
+    }
+
+    handlePeriodListDelete() {
+        this.period = {};
     }
 
     handleDelete() {

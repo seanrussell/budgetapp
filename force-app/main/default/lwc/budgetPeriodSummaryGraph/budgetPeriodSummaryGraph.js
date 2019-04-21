@@ -41,6 +41,7 @@ export default class BudgetPeriodSummaryGraph extends LightningElement {
             });
 
             if (this.chartjsInitialized) {
+                this.chart.destroy();
                 this.generateGraph(labels, income, expense);
                 return;
             }

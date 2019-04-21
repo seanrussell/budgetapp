@@ -25,6 +25,7 @@ export default class BudgetPeriodSummaryChart extends LightningElement {
             ];
 
             if (this.chartjsInitialized) {
+                this.chart.destroy();
                 this.generateChart(dataLabels, dataValues);
                 return;
             }

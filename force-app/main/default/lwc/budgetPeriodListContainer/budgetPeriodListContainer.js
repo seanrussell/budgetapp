@@ -53,6 +53,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
     handleBudgetPeriodDeleted() {
         this.loadBudgetPeriods();
         fireEvent(this.pageRef, 'budgetPeriodRemoved', {});
+        fireEvent(this.pageRef, 'budgetPeriodListDelete', {});
     }
 
     handlePeriodSelected(event) {

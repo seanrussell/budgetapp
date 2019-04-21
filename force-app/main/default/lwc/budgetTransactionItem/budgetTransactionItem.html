@@ -29,7 +29,7 @@
     </template>   
     <template if:false={isEdit}>
         <template if:true={items.length}>
-            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-bottom_medium">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-bottom_medium transaction-item-table">
                 <thead>
                     <tr class="slds-line-height_reset">
                     <th class="" scope="col">
@@ -38,10 +38,10 @@
                     <th class="" scope="col">
                         <div class="slds-truncate" title="Type">Type</div>
                     </th>
-                    <th class="" scope="col">
+                    <th class="amount" scope="col">
                         <div class="slds-truncate" title="Amount">Amount</div>
                     </th>
-                    <th class="" scope="col">
+                    <th class="date-time" scope="col">
                         <div class="slds-truncate" title="Date">Date</div>
                     </th>
                     <th></th>
@@ -60,7 +60,7 @@
                                     {transactionItem.Type__c}
                                 </div>
                             </td>
-                            <td data-label="Amount">
+                            <td data-label="Amount" class="amount">
                                 <div class="slds-truncate">
                                     <lightning-formatted-number 
                                         value={transactionItem.Amount__c}
@@ -69,7 +69,7 @@
                                     </lightning-formatted-number>
                                 </div>
                             </td>
-                            <td data-label="Date">
+                            <td data-label="Date" class="date-time">
                                 <div class="slds-truncate">
                                     <lightning-formatted-date-time
                                         value={transactionItem.Date__c} 
