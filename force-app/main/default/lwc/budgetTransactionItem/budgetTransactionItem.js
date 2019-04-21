@@ -1,6 +1,7 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
+import { CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-
+import { fireEvent } from 'c/pubsub';
 import getTransactionItemList from '@salesforce/apex/TransactionItemController.getTransactionItems';
 import deleteTransactionItem from '@salesforce/apex/TransactionItemController.deleteTransactionItem';
 
@@ -23,6 +24,8 @@ export default class BudgetTransactionItemContainer extends LightningElement {
     @track isEdit = false;
     @track error = {};
     @track selectedId;
+
+    @wire(CurrentPageReference) pageRef;
 
     renderedCallback() {
         if (this.budgetPeriodId) {
@@ -68,6 +71,8 @@ export default class BudgetTransactionItemContainer extends LightningElement {
                     this.dispatchEvent(event);
 
                     this.loadTransactionItems();
+
+                    fireEvent(this.pageRef, 'transactionItemDeleted', {});
                 })
                 .catch(error => {
                     const event = new ShowToastEvent({
@@ -85,6 +90,7 @@ export default class BudgetTransactionItemContainer extends LightningElement {
     handleTransactionItemCreated() {
         this.isEdit = false;
         this.loadTransactionItems();
+        fireEvent(this.pageRef, 'transactionItemAdded', {});
     }
 
     handleTransactionItemCancel() {

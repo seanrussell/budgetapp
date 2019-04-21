@@ -52,6 +52,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     handleBudgetPeriodDeleted() {
         this.loadBudgetPeriods();
+        fireEvent(this.pageRef, 'budgetPeriodRemoved', {});
     }
 
     handlePeriodSelected(event) {
@@ -76,6 +77,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
         this.isNew = false;
         this.pageNumber = 1;
         this.loadBudgetPeriods();
+        fireEvent(this.pageRef, 'budgetPeriodAdded', {});
     }
 
     handleBudgetPeriodCancel() {

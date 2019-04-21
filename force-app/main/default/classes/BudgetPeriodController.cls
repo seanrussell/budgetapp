@@ -34,6 +34,15 @@ public with sharing class BudgetPeriodController {
 
     @AuraEnabled(cacheable=true)
     public static BudgetPeriodSummary getBudgetPeriodSummary() {
+        return retrieveBudgetPeriodSummary();
+    }
+
+    @AuraEnabled
+    public static BudgetPeriodSummary getBudgetPeriodSummaryUpdate() {
+        return retrieveBudgetPeriodSummary();
+    }
+
+    private static BudgetPeriodSummary retrieveBudgetPeriodSummary() {
         AggregateResult[] results = [
             SELECT 
                 SUM(Total_Income__c) totalIncome, 
@@ -55,6 +64,15 @@ public with sharing class BudgetPeriodController {
 
     @AuraEnabled(cacheable=true)
     public static List<BudgetPeriod> getBudgetPeriodRecentHistory() {
+        return retrieveBudgetPeriodHistory();
+    }
+
+    @AuraEnabled
+    public static List<BudgetPeriod> getBudgetPeriodRecentHistoryUpdate() {
+        return retrieveBudgetPeriodHistory();
+    }
+
+    private static List<BudgetPeriod> retrieveBudgetPeriodHistory() {
         List<Budget_Period__c> budgetPeriods = [
             SELECT 
                 Start_Date__c,

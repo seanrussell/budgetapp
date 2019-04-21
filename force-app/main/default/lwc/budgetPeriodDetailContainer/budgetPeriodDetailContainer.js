@@ -1,12 +1,9 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
-import { getRecord } from 'lightning/uiRecordApi';
-
-import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
-
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getRecord } from 'lightning/uiRecordApi';
+import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
-
 
 import BUDGET_PERIOD_OBJECT from '@salesforce/schema/Budget_Period__c';
 import NAME_FIELD from '@salesforce/schema/Budget_Period__c.Name';
@@ -62,7 +59,7 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
                     });
                     this.dispatchEvent(event);
 
-                    fireEvent(this.pageRef, 'budgetPeriodDeleted', this.recordId);
+                    fireEvent(this.pageRef, 'budgetPeriodDeleted', {});
                 })
                 .catch(error => {
                     this.error = error;
