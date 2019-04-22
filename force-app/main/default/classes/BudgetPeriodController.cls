@@ -115,6 +115,21 @@ public with sharing class BudgetPeriodController {
         } 
     }
 
+    @AuraEnabled
+    public static Budget_Period__c retrieveBudgetPeriodDetailUpdate(String budgetPeriodId) {
+        return [
+            SELECT 
+                Id,
+                Total_Income__c,
+                Total_Expense__c,
+                Total_Savings__c
+            FROM 
+                Budget_Period__c
+            WHERE Id = :budgetPeriodId
+            LIMIT 1
+        ];
+    }
+
     private static String getLabel(Date theDate) {
         return MONTH_NAMES.get(theDate.month()) + ' ' + theDate.year();
     }

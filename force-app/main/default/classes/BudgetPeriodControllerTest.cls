@@ -130,4 +130,16 @@ private class BudgetPeriodControllerTest {
 
         System.assertEquals(budgetPeriods.size(), updatedBudgetPeriods.size() + 1);
     }
+
+    @isTest 
+    static void testRetrieveBudgetPeriodDetailUpdate() {
+        Budget_Period__c budgetPeriod = getBudgetPeriod();
+        List<Budget_Period__c> budgetPeriods = getBudgetPeriods();
+
+        Test.startTest();
+        Budget_Period__c bp = BudgetPeriodController.retrieveBudgetPeriodDetailUpdate(budgetPeriod.Id);
+        Test.stopTest();
+
+        System.assertEquals(budgetPeriod.Id, bp.Id);
+    }
 }
