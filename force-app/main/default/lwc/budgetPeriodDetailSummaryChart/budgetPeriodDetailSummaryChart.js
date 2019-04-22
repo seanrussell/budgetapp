@@ -1,17 +1,18 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
 
-export default class BudgetPeriodSummaryChart extends LightningElement {
-    
-    @api summary;
+export default class BudgetPeriodDetailSummaryChart extends LightningElement {
+    @api totalIncome;
+    @api totalExpenses;
+    @api totalSavings;
 
-    @track error;
-    chart;
-    chartjsInitialized = false;
+    allValuesPopulated() {
+        return this.totalIncome && this.totalExpenses && this.totalSavings;
+    }
 
     renderedCallback() {
-        if (this.summary) {
+        if (this.allValuesPopulated()) {
             const dataLabels = [
                 'Income', 
                 'Expense', 
@@ -19,9 +20,9 @@ export default class BudgetPeriodSummaryChart extends LightningElement {
             ];
 
             const dataValues = [
-                this.summary.totalIncome.toFixed(2),
-                this.summary.totalExpense.toFixed(2),
-                this.summary.totalSavings.toFixed(2)
+                this.totalIncome.toFixed(2),
+                this.totalExpenses.toFixed(2),
+                this.totalSavings.toFixed(2)
             ];
 
             if (this.chartjsInitialized) {

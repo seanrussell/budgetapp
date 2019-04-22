@@ -2,11 +2,8 @@
     <template if:true={summary}>
         <lightning-card title="Income &amp; Expense Breakdown" icon-name="standard:metrics">
             <div class="slds-m-around_medium">
-                <canvas class="pie" lwc:dom="manual"></canvas>
+                <canvas class="doughnut" lwc:dom="manual"></canvas>
             </div>
-            <template if:true={error}>
-                
-            </template>
         </lightning-card>
     </template>
 </template>

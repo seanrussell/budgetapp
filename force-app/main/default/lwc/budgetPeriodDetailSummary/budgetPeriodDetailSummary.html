@@ -1,0 +1,34 @@
+<template>
+    <template if:true={allValuesPopulated}>
+        <div class="slds-m-around_medium">
+            <div class="slds-m-around_medium slds-align_absolute-center">
+                <dl>
+                    <dt class="income-text">Income</dt>
+                    <dd class="income-bg">
+                        <lightning-formatted-number 
+                            value={totalIncome}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                    <dt class="expenses-text">Expenses</dt>
+                    <dd class="expenses-bg">
+                        <lightning-formatted-number 
+                            value={totalExpenses}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                    <dt class="savings-text">Savings</dt>
+                    <dd class="savings-bg">
+                        <lightning-formatted-number 
+                            value={totalSavings}
+                            format-style="currency" 
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </template>
+</template>

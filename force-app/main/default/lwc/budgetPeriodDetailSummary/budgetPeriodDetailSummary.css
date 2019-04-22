@@ -1,41 +1,40 @@
 .income-text {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: rgb(54, 162, 235);
     padding: 5px;
     border-bottom: 1px solid #efefef;
 }
 
 .income-bg {
-    font-size: 1.2em;
-    color: #fff;
-    background-color: rgb(54, 162, 235);
+    font-size: 1.1em;
+    color: #000;
     padding: 5px;
+    border-bottom: 1px solid #efefef;
 }
 
 .expenses-text {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: rgb(255, 99, 132);
     padding: 5px;
     border-bottom: 1px solid #efefef;
 }
 
 .expenses-bg {
-    font-size: 1.2em;
-    color: #fff;
-    background-color: rgb(255, 99, 132);
+    font-size: 1.1em;
+    color: #000;
     padding: 5px;
+    border-bottom: 1px solid #efefef;
 }
 
 .savings-text {
-    font-size: 1.2em;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: rgb(75, 192, 192);
     padding: 5px;
 }
 
 .savings-bg {
-    color: #fff;
-    background-color: rgb(75, 192, 192);
+    font-size: 1.1em;
+    color: #000;
     padding: 5px;
 }
 
@@ -44,7 +43,6 @@ dt {
     clear: left;
     width: 100px;
     text-align: right;
-    font-weight: bold;
     text-transform: uppercase;
 }
   
@@ -53,7 +51,7 @@ dt::after {
 }
 
 dd {
-    width: 150px;
+    width: 100px;
     margin: 0 0 1px 110px;
     text-align: right;
 }

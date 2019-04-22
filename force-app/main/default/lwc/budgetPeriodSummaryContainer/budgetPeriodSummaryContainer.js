@@ -24,7 +24,7 @@ export default class BudgetPeriodSummaryContainer extends LightningElement {
         registerListener('budgetPeriodAdded', this.handleEvent, this);
         registerListener('budgetPeriodRemoved', this.handleEvent, this);
         registerListener('transactionItemAdded', this.handleEvent, this);
-        registerListener('transactionItemDeleted', this.handleEvent, this)
+        registerListener('transactionItemDeleted', this.handleEvent, this);
     }
 
     disconnectedCallback() {

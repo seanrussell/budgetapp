@@ -8,7 +8,24 @@
                 onclick={handleDelete}>
             </lightning-button>
 
-            <div class="slds-m-around_medium">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <c-budget-period-detail-summary 
+                        total-income={period.data.fields.Total_Income__c.value}
+                        total-expenses={period.data.fields.Total_Expense__c.value}
+                        total-savings={period.data.fields.Total_Savings__c.value}>
+                    </c-budget-period-detail-summary>
+                </div>
+                <div class="slds-col">
+                    <c-budget-period-detail-summary-chart 
+                        total-income={period.data.fields.Total_Income__c.value}
+                        total-expenses={period.data.fields.Total_Expense__c.value}
+                        total-savings={period.data.fields.Total_Savings__c.value}>
+                    </c-budget-period-detail-summary-chart>
+                </div>
+            </div>
+            
+            <div class="slds-m-around_medium">        
                 <lightning-tabset active-tab-value="details">
                     <lightning-tab label="Details" value="details">
                         <lightning-record-form
