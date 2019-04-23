@@ -115,11 +115,34 @@ public with sharing class BudgetPeriodController {
         } 
     }
 
+    @AuraEnabled(cacheable=true)
+    public static Budget_Period__c retrieveBudgetPeriodDetail(String budgetPeriodId) {
+        return [
+            SELECT 
+                Id,
+                Name,
+                Description__c,
+                Start_Date__c,
+                End_Date__c,
+                Total_Income__c,
+                Total_Expense__c,
+                Total_Savings__c
+            FROM 
+                Budget_Period__c
+            WHERE Id = :budgetPeriodId
+            LIMIT 1
+        ];
+    }
+
     @AuraEnabled
     public static Budget_Period__c retrieveBudgetPeriodDetailUpdate(String budgetPeriodId) {
         return [
             SELECT 
                 Id,
+                Name,
+                Description__c,
+                Start_Date__c,
+                End_Date__c,
                 Total_Income__c,
                 Total_Expense__c,
                 Total_Savings__c

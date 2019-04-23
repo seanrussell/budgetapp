@@ -66,7 +66,7 @@ export default class BudgetPeriodSummaryChart extends LightningElement {
             options: {
                 responsive: true,
                 legend: {
-                    position: 'right'
+                    position: 'bottom'
                 },
                 animation: {
                     animateScale: true,

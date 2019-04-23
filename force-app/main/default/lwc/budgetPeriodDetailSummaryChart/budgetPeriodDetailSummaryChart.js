@@ -1,18 +1,22 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
 
 export default class BudgetPeriodDetailSummaryChart extends LightningElement {
-    @api totalIncome;
-    @api totalExpenses;
-    @api totalSavings;
+    @api summary;
+
+    @track error;
+    chart;
+    chartjsInitialized = false;
 
     allValuesPopulated() {
-        return this.totalIncome && this.totalExpenses && this.totalSavings;
+        return this.summary.Total_Income__c && this.summary.Total_Expense__c && this.summary.Total_Savings__c;
     }
 
     renderedCallback() {
-        if (this.allValuesPopulated()) {
+        console.log('CHART RENDERED CALLBACK');
+        console.log('ALL POP? ', this.allValuesPopulated());
+        if (this.summary && this.allValuesPopulated()) {
             const dataLabels = [
                 'Income', 
                 'Expense', 
@@ -20,11 +24,13 @@ export default class BudgetPeriodDetailSummaryChart extends LightningElement {
             ];
 
             const dataValues = [
-                this.totalIncome.toFixed(2),
-                this.totalExpenses.toFixed(2),
-                this.totalSavings.toFixed(2)
+                this.summary.Total_Income__c.toFixed(2),
+                this.summary.Total_Expense__c.toFixed(2),
+                this.summary.Total_Savings__c.toFixed(2)
             ];
 
+            console.log('DATA VALS: ', dataValues);
+            
             if (this.chartjsInitialized) {
                 this.chart.destroy();
                 this.generateChart(dataLabels, dataValues);
@@ -67,7 +73,7 @@ export default class BudgetPeriodDetailSummaryChart extends LightningElement {
             options: {
                 responsive: true,
                 legend: {
-                    position: 'right'
+                    position: 'bottom'
                 },
                 animation: {
                     animateScale: true,

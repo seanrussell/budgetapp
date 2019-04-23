@@ -13,6 +13,7 @@ public with sharing class TransactionItemController {
                 Transaction_Item__c 
             WHERE 
                 Budget_Period__c = :budgetPeriodId
+            ORDER BY Date__c
         ];
         
         return items;

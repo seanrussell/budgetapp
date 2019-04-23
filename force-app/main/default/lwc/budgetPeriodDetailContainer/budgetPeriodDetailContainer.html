@@ -1,6 +1,6 @@
 <template>
     <template if:true={period.data}>
-        <lightning-card title={period.data.fields.Name.value} icon-name="standard:display_text">
+        <lightning-card title={period.data.Name} icon-name="standard:display_text">
             <lightning-button
                 slot="actions"
                 variant="destructive"
@@ -9,23 +9,21 @@
             </lightning-button>
 
             <div class="slds-grid slds-gutters">
-                <div class="slds-col">
+                <div class="slds-col income-summary">
                     <c-budget-period-detail-summary 
-                        total-income={period.data.fields.Total_Income__c.value}
-                        total-expenses={period.data.fields.Total_Expense__c.value}
-                        total-savings={period.data.fields.Total_Savings__c.value}>
+                        total-income={period.data.Total_Income__c}
+                        total-expenses={period.data.Total_Expense__c}
+                        total-savings={period.data.Total_Savings__c}>
                     </c-budget-period-detail-summary>
                 </div>
                 <div class="slds-col">
                     <c-budget-period-detail-summary-chart 
-                        total-income={period.data.fields.Total_Income__c.value}
-                        total-expenses={period.data.fields.Total_Expense__c.value}
-                        total-savings={period.data.fields.Total_Savings__c.value}>
+                        summary={period.data}>
                     </c-budget-period-detail-summary-chart>
                 </div>
             </div>
-            
-            <div class="slds-m-around_medium">        
+
+            <div class="slds-m-left_medium slds-m-right_medium slds-m-bottom_medium">        
                 <lightning-tabset active-tab-value="details">
                     <lightning-tab label="Details" value="details">
                         <lightning-record-form
