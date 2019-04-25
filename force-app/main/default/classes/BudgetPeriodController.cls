@@ -37,11 +37,6 @@ public with sharing class BudgetPeriodController {
         return retrieveBudgetPeriodSummary();
     }
 
-    @AuraEnabled
-    public static BudgetPeriodSummary getBudgetPeriodSummaryUpdate() {
-        return retrieveBudgetPeriodSummary();
-    }
-
     private static BudgetPeriodSummary retrieveBudgetPeriodSummary() {
         AggregateResult[] results = [
             SELECT 
@@ -64,11 +59,6 @@ public with sharing class BudgetPeriodController {
 
     @AuraEnabled(cacheable=true)
     public static List<BudgetPeriod> getBudgetPeriodRecentHistory() {
-        return retrieveBudgetPeriodHistory();
-    }
-
-    @AuraEnabled
-    public static List<BudgetPeriod> getBudgetPeriodRecentHistoryUpdate() {
         return retrieveBudgetPeriodHistory();
     }
 

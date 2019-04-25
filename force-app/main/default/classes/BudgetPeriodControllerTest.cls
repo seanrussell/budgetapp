@@ -86,32 +86,10 @@ private class BudgetPeriodControllerTest {
     }
 
     @isTest 
-    static void testGetBudgetPeriodSummaryUpdate() {
-
-        Test.startTest();
-        BudgetPeriodController.BudgetPeriodSummary summary = BudgetPeriodController.getBudgetPeriodSummaryUpdate();
-        Test.stopTest();
-
-        System.assertEquals(1000, summary.totalIncome);
-        System.assertEquals(900, summary.totalExpense);
-        System.assertEquals(100, summary.totalSavings);
-    }
-
-    @isTest 
     static void testGetBudgetPeriodRecentHistory() {
 
         Test.startTest();
         List<BudgetPeriodController.BudgetPeriod> recentHistory = BudgetPeriodController.getBudgetPeriodRecentHistory();
-        Test.stopTest();
-
-        System.assert(!recentHistory.isEmpty());
-    }
-
-    @isTest 
-    static void testGetBudgetPeriodRecentHistoryUpdate() {
-
-        Test.startTest();
-        List<BudgetPeriodController.BudgetPeriod> recentHistory = BudgetPeriodController.getBudgetPeriodRecentHistoryUpdate();
         Test.stopTest();
 
         System.assert(!recentHistory.isEmpty());
@@ -138,18 +116,6 @@ private class BudgetPeriodControllerTest {
 
         Test.startTest();
         Budget_Period__c bp = BudgetPeriodController.retrieveBudgetPeriodDetail(budgetPeriod.Id);
-        Test.stopTest();
-
-        System.assertEquals(budgetPeriod.Id, bp.Id);
-    }
-
-    @isTest 
-    static void testRetrieveBudgetPeriodDetailUpdate() {
-        Budget_Period__c budgetPeriod = getBudgetPeriod();
-        List<Budget_Period__c> budgetPeriods = getBudgetPeriods();
-
-        Test.startTest();
-        Budget_Period__c bp = BudgetPeriodController.retrieveBudgetPeriodDetailUpdate(budgetPeriod.Id);
         Test.stopTest();
 
         System.assertEquals(budgetPeriod.Id, bp.Id);

@@ -1,14 +1,17 @@
 import { createElement } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import BudgetPeriodDetailContainer from 'c/budgetPeriodDetailContainer';
+import BudgetPeriodListItem from 'c/budgetPeriodListItem';
+
 import { registerTestWireAdapter } from '@salesforce/lwc-jest';
 
-import { registerListener, unregisterAllListeners } from 'c/pubsub';
+import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 
 
 // Mock out the event firing function to verify it was called with expected parameters.
 jest.mock('c/pubsub', () => {
     return {
+        fireEvent: jest.fn(),
         registerListener: jest.fn(),
         unregisterAllListeners: jest.fn()
     };
@@ -36,7 +39,6 @@ describe('c-budget-period-detail-container', () => {
     });
 
     it('registers and unregisters the pubsub listener during the component lifecycle', () => {
-        // Create initial element
         const element = createElement('c-budget-period-detail-container', {
             is: BudgetPeriodDetailContainer
         });
@@ -52,5 +54,13 @@ describe('c-budget-period-detail-container', () => {
         // Validate if pubsub got unregistered after disconnected from the DOM
         document.body.removeChild(element);
         expect(unregisterAllListeners.mock.calls.length).toBe(1);
+    });
+
+    it('retrieves budget period record', () => {
+        const element = createElement('c-budget-period-detail-container', {
+            is: BudgetPeriodDetailContainer
+        });
+        document.body.appendChild(element);
+
     });
 });

@@ -1,15 +1,14 @@
 /* Base Lightning */
 import { LightningElement, wire, track } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+import { refreshApex } from '@salesforce/apex';
 
 /* Pubsub */
 import { registerListener, unregisterAllListeners } from 'c/pubsub';
 
 /* Apex methods */
 import getBudgetPeriodSummary from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodSummary';
-import getBudgetPeriodSummaryUpdate from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodSummaryUpdate';
 import getBudgetPeriodHistory from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodRecentHistory';
-import getBudgetPeriodHistoryUpdate from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodRecentHistoryUpdate';
 
 export default class BudgetPeriodSummaryContainer extends LightningElement {
     @track error;
@@ -23,6 +22,12 @@ export default class BudgetPeriodSummaryContainer extends LightningElement {
     loaded = false;
 
     @wire(CurrentPageReference) pageRef;
+
+    @wire(getBudgetPeriodSummary)
+    summary;
+
+    @wire(getBudgetPeriodHistory)
+    history;
 
     connectedCallback() {
         registerListener('budgetPeriodAdded', this.handleEvent, this);
@@ -38,58 +43,12 @@ export default class BudgetPeriodSummaryContainer extends LightningElement {
     renderedCallback() {
         if (!this.loaded) {
             this.loaded = true;
-            this.loadSummaryData();
         }
     }
-
-    loadSummaryData() {
-        this.loadBudgetPeriodSummary();
-        this.loadBudgetPeriodHistory();
-    }
-
+    
     loadSummaryDataUpdate() {
-        this.loadBudgetPeriodSummaryUpdate();
-        this.loadBudgetPeriodHistoryUpdate();
-    }
-
-    loadBudgetPeriodSummary() {
-        getBudgetPeriodSummary()
-            .then(result => {
-                this.summary.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
-    }
-
-    loadBudgetPeriodSummaryUpdate() {
-        getBudgetPeriodSummaryUpdate()
-            .then(result => {
-                this.summary.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
-    }
-
-    loadBudgetPeriodHistory() {
-        getBudgetPeriodHistory()
-            .then(result => {
-                this.history.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
-    }
-
-    loadBudgetPeriodHistoryUpdate() {
-        getBudgetPeriodHistoryUpdate()
-            .then(result => {
-                this.history.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
+        refreshApex(this.summary);
+        refreshApex(this.history);
     }
 
     handleEvent() {

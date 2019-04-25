@@ -1,7 +1,8 @@
 /* Base Lightning */
-import { LightningElement, track, wire, api } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
 
 /* Pubsub */
 import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
@@ -9,7 +10,6 @@ import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 /* Apex methods */
 import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
 import retrieveBudgetPeriodDetail from '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetail';
-import retrieveBudgetPeriodDetailUpdate from '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetailUpdate';
 
 /* Objects and fields */
 import BUDGET_PERIOD_OBJECT from '@salesforce/schema/Budget_Period__c';
@@ -30,6 +30,9 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
 
     @wire(CurrentPageReference) pageRef;
 
+    @wire(retrieveBudgetPeriodDetail, { budgetPeriodId: '$recordId' })
+    period;
+
     connectedCallback() {
         registerListener('periodSelected', this.handlePeriodSelected, this);
         registerListener('budgetPeriodListDelete', this.handlePeriodListDelete, this);
@@ -44,7 +47,6 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
     renderedCallback() {
         if (this.recordId && !this.initialized) {
             this.initialized = true;
-            this.retrieveBudgetPeriodDetail();
         }
     }
 
@@ -52,20 +54,10 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
         return this.period.Total_Income__c && this.period.Total_Expense__c && this.period.Total_Savings__c;
     }
 
-    retrieveBudgetPeriodDetail() {
-        retrieveBudgetPeriodDetail({budgetPeriodId: this.recordId})
-                .then(result => {
-                    this.period.data = result;
-                })
-                .catch(error => {
-                    this.error = error;
-                });
-    }
-
     handlePeriodSelected(periodId) {
         this.period = {};
         this.recordId = periodId;
-        this.retrieveBudgetPeriodDetail();
+        refreshApex(this.period);
     }
 
     handlePeriodListDelete() {
@@ -101,12 +93,6 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
     }
 
     handleTransactionItemChangeEvent() {
-        retrieveBudgetPeriodDetailUpdate({budgetPeriodId: this.recordId})
-            .then(result => {
-                this.period.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
+        refreshApex(this.period);
     }
 }

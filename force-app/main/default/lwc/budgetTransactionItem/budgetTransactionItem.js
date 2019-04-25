@@ -101,8 +101,4 @@ export default class BudgetTransactionItemContainer extends LightningElement {
     handleTransactionItemCancel() {
         this.isEdit = false;
     }
-
-    isTypeCredit(theType) {
-        return theType === 'Credit';
-    }
 }
