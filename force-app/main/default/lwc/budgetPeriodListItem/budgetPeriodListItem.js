@@ -1,7 +1,9 @@
+/* Base Lightning */
 import { LightningElement, api, track } from 'lwc';
-
-import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+/* Apex methods */
+import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
 
 export default class BudgetPeriodListItem extends LightningElement {
     @api period;

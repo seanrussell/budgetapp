@@ -1,13 +1,17 @@
-import { LightningElement, track, wire } from 'lwc';
+/* Base Lightning */
+import { LightningElement, track, wire, api } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+/* Pubsub */
 import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
-import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
 
+/* Apex methods */
+import deleteBudgetPeriod from '@salesforce/apex/BudgetPeriodController.deleteBudgetPeriod';
 import retrieveBudgetPeriodDetail from '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetail';
 import retrieveBudgetPeriodDetailUpdate from '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetailUpdate';
 
+/* Objects and fields */
 import BUDGET_PERIOD_OBJECT from '@salesforce/schema/Budget_Period__c';
 import NAME_FIELD from '@salesforce/schema/Budget_Period__c.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/Budget_Period__c.Description__c';
@@ -97,10 +101,8 @@ export default class BudgetPeriodDetailContainer extends LightningElement {
     }
 
     handleTransactionItemChangeEvent() {
-        console.log('HANDLE CHANGE EVENT');
         retrieveBudgetPeriodDetailUpdate({budgetPeriodId: this.recordId})
             .then(result => {
-                console.log('RESULT: ', result);
                 this.period.data = result;
             })
             .catch(error => {

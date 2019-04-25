@@ -1,3 +1,4 @@
+/* Base Lightning */
 import { LightningElement, api, track } from 'lwc';
 
 export default class BudgetPeriodSummary extends LightningElement {

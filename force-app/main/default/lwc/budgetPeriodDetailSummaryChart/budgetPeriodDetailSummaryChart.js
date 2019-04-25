@@ -1,3 +1,4 @@
+/* Base Lightning */
 import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
@@ -14,8 +15,6 @@ export default class BudgetPeriodDetailSummaryChart extends LightningElement {
     }
 
     renderedCallback() {
-        console.log('CHART RENDERED CALLBACK');
-        console.log('ALL POP? ', this.allValuesPopulated());
         if (this.summary && this.allValuesPopulated()) {
             const dataLabels = [
                 'Income', 
@@ -28,8 +27,6 @@ export default class BudgetPeriodDetailSummaryChart extends LightningElement {
                 this.summary.Total_Expense__c.toFixed(2),
                 this.summary.Total_Savings__c.toFixed(2)
             ];
-
-            console.log('DATA VALS: ', dataValues);
             
             if (this.chartjsInitialized) {
                 this.chart.destroy();

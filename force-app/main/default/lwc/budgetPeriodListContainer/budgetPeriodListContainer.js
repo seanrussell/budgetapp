@@ -1,9 +1,14 @@
-import { LightningElement, api, track, wire } from 'lwc';
+/* Base Lightning */
+import { LightningElement, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+
+/* Pubsub */
 import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 
+/* Apex methods */
 import getBudgetPeriods from '@salesforce/apex/BudgetPeriodController.getBudgetPeriods';
 
+/* Objects and fields */
 import BUDGET_PERIOD_OBJECT from '@salesforce/schema/Budget_Period__c';
 import NAME_FIELD from '@salesforce/schema/Budget_Period__c.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/Budget_Period__c.Description__c';

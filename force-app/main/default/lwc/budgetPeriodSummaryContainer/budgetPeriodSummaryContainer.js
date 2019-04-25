@@ -1,7 +1,11 @@
+/* Base Lightning */
 import { LightningElement, wire, track } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+
+/* Pubsub */
 import { registerListener, unregisterAllListeners } from 'c/pubsub';
 
+/* Apex methods */
 import getBudgetPeriodSummary from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodSummary';
 import getBudgetPeriodSummaryUpdate from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodSummaryUpdate';
 import getBudgetPeriodHistory from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodRecentHistory';

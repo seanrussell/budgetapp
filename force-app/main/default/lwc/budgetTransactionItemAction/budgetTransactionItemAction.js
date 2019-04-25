@@ -1,3 +1,4 @@
+/* Base Lightning */
 import { LightningElement, api } from 'lwc';
 
 export default class BudgetTransactionItemAction extends LightningElement {
