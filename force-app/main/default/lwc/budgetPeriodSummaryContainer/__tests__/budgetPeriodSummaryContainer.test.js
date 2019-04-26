@@ -1,9 +1,15 @@
 import { createElement } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import BudgetPeriodSummaryContainer from 'c/budgetPeriodSummaryContainer';
-import { registerTestWireAdapter } from '@salesforce/lwc-jest';
+import { registerTestWireAdapter, registerApexTestWireAdapter } from '@salesforce/lwc-jest';
 
 import { registerListener, unregisterAllListeners } from 'c/pubsub';
+
+import getBudgetPeriodSummary from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodSummary';
+import getBudgetPeriodHistory from '@salesforce/apex/BudgetPeriodController.getBudgetPeriodRecentHistory';
+
+const getBudgetPeriodSummaryAdapter = registerApexTestWireAdapter(getBudgetPeriodSummary);
+const getBudgetPeriodHistoryAdapter = registerApexTestWireAdapter(getBudgetPeriodHistory);
 
 registerTestWireAdapter(CurrentPageReference);
 

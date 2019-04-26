@@ -1,6 +1,7 @@
 /* Base Lightning */
 import { LightningElement, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+import { refreshApex } from '@salesforce/apex';
 
 /* Pubsub */
 import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
@@ -30,6 +31,9 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     @wire(CurrentPageReference) pageRef;
 
+    @wire(getBudgetPeriods, {pageNumber: '$pageNumber' })
+    periods;
+
     connectedCallback() {
         registerListener('budgetPeriodDeleted', this.handleBudgetPeriodDeleted, this);
     }
@@ -45,18 +49,8 @@ export default class BudgetPeriodListContainer extends LightningElement {
         }
     }
 
-    loadBudgetPeriods() {
-        getBudgetPeriods({pageNumber: this.pageNumber})
-                .then(result => {
-                    this.periods.data = result;
-                })
-                .catch(error => {
-                    this.error = error;
-                });
-    }
-
     handleBudgetPeriodDeleted() {
-        this.loadBudgetPeriods();
+        refreshApex(this.pageNumber);
         fireEvent(this.pageRef, 'budgetPeriodRemoved', {});
         fireEvent(this.pageRef, 'budgetPeriodListDelete', {});
     }
@@ -67,12 +61,12 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     handlePreviousPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.loadBudgetPeriods();
+        refreshApex(this.pageNumber);
     }
 
     handleNextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.loadBudgetPeriods();
+        refreshApex(this.pageNumber);
     }
 
     handleNew() {
@@ -82,7 +76,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
     handleBudgetPeriodCreated() {
         this.isNew = false;
         this.pageNumber = 1;
-        this.loadBudgetPeriods();
+        refreshApex(this.pageNumber);
         fireEvent(this.pageRef, 'budgetPeriodAdded', {});
     }
 

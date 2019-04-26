@@ -16,6 +16,20 @@ describe('c-budget-period-detail-summary', () => {
         const element = createElement('c-budget-period-detail-summary', {
             is: BudgetPeriodDetailSummary
         });
+        
+        element.totalIncome = 1200.0;
+        element.totalExpense = 1000.0;
+        element.totalSavings = 200.0;
+
         document.body.appendChild(element);
+
+        return Promise.resolve()
+            .then(() => {
+                const nums = element.shadowRoot.querySelector(
+                    'lightning-formatted-number'
+                );
+
+                expect(nums).toBeTruthy();
+            });
     });
 });

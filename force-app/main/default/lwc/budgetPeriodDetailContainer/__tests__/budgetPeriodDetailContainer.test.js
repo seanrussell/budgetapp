@@ -1,12 +1,11 @@
 import { createElement } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import BudgetPeriodDetailContainer from 'c/budgetPeriodDetailContainer';
-import BudgetPeriodListItem from 'c/budgetPeriodListItem';
 
-import { registerTestWireAdapter } from '@salesforce/lwc-jest';
+import { registerTestWireAdapter, registerApexTestWireAdapter } from '@salesforce/lwc-jest';
 
-import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
-
+import { registerListener, unregisterAllListeners } from 'c/pubsub';
+import retrieveBudgetPeriodDetail from '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetail';
 
 // Mock out the event firing function to verify it was called with expected parameters.
 jest.mock('c/pubsub', () => {
@@ -17,15 +16,8 @@ jest.mock('c/pubsub', () => {
     };
 });
 
-jest.mock(
-    '@salesforce/apex/BudgetPeriodController.retrieveBudgetPeriodDetail',
-    () => {
-        return {
-            default: jest.fn()
-        };
-    },
-    { virtual: true }
-);
+const mockBudgetPeriodDetail = require('./data/budgetPeriodDetail.json');
+const retrieveBudgetPeriodDetailAdapter = registerApexTestWireAdapter(retrieveBudgetPeriodDetail);
 
 registerTestWireAdapter(CurrentPageReference);
 
@@ -62,5 +54,29 @@ describe('c-budget-period-detail-container', () => {
         });
         document.body.appendChild(element);
 
+        retrieveBudgetPeriodDetailAdapter.emit(mockBudgetPeriodDetail);
+
+        return Promise.resolve()
+            .then(() => {
+                const delButton = element.shadowRoot.querySelector(
+                    'lightning-button'
+                );
+
+                expect(delButton).toBeTruthy();
+            })
+            .then(() => {
+                const summaryComponent = element.shadowRoot.querySelector(
+                    'c-budget-period-detail-summary'
+                );
+
+                expect(summaryComponent).toBeTruthy();
+            })
+            .then(() => {
+                const summaryChartComponent = element.shadowRoot.querySelector(
+                    'c-budget-period-detail-summary-chart'
+                );
+
+                expect(summaryChartComponent).toBeTruthy();
+            });
     });
 });
