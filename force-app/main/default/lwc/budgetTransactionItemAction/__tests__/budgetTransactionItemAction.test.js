@@ -17,5 +17,50 @@ describe('c-budget-transaction-item-action', () => {
             is: BudgetTransactionItemAction
         });
         document.body.appendChild(element);
+
+        return Promise.resolve()
+            .then(() => {
+                const btn = element.shadowRoot.querySelector(
+                    'lightning-button-icon'
+                );
+
+                expect(btn).toBeTruthy();
+            });
+    });
+
+    it('fires edit event when clicked', () => {
+        const listener = jest.fn();
+
+        const element = createElement('c-budget-transaction-item-action', {
+            is: BudgetTransactionItemAction
+        });
+
+        element.addEventListener('selected', listener);
+        element.name = 'action:edit';
+
+        document.body.appendChild(element);
+
+        const btn = element.shadowRoot.querySelector('lightning-button-icon');
+        btn.click();
+
+        expect(listener).toHaveBeenCalled();
+    });
+
+    it('fires edit event when clicked', () => {
+        const listener = jest.fn();
+        
+        const element = createElement('c-budget-transaction-item-action', {
+            is: BudgetTransactionItemAction
+        });
+
+        element.addEventListener('selected', listener);
+        element.name = 'action:delete';
+
+        document.body.appendChild(element);
+
+        const btn = element.shadowRoot.querySelector('lightning-button-icon');
+        btn.click();
+
+        expect(listener).toHaveBeenCalled();
     });
 });
