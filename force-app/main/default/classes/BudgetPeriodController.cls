@@ -17,7 +17,7 @@ public with sharing class BudgetPeriodController {
         12 => 'December'
     };
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static PagedResult getBudgetPeriods(Integer pageNumber) {
         Integer pageSize = BudgetPeriodController.PAGE_SIZE;
         Integer offset = (pageNumber - 1) * pageSize;

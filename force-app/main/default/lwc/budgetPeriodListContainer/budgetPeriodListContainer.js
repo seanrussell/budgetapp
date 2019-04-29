@@ -21,7 +21,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
     budgetPeriodObject = BUDGET_PERIOD_OBJECT;
     budgetPeriodFields = [NAME_FIELD, DESCRIPTION_FIELD, START_DATE_FIELD, END_DATE_FIELD];
     
-    @track periods = {};
+    @track periods = [];
     @track error = [];
     @track isNew = false;
     @track pageNumber = 1;
@@ -31,7 +31,7 @@ export default class BudgetPeriodListContainer extends LightningElement {
 
     @wire(CurrentPageReference) pageRef;
 
-    @wire(getBudgetPeriods, {pageNumber: '$pageNumber' })
+    @wire(getBudgetPeriods, { pageNumber: '$pageNumber' })
     periods;
 
     connectedCallback() {
@@ -45,7 +45,6 @@ export default class BudgetPeriodListContainer extends LightningElement {
     renderedCallback() {
         if (this.pageNumber && !this.loaded) {
             this.loaded = true;
-            this.loadBudgetPeriods();
         }
     }
 
